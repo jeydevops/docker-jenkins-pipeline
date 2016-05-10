@@ -12,6 +12,10 @@ node {
 
    step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
 
+   def buildNumber = env.BUILD_NUMBER
+   def workspace = env.WORKSPACE
+   def buildUrl = env.BUILD_URL
+
    stage 'Build Docker image'
    def image = docker.build('infinityworks/dropwizard-example:snapshot', '.')
 
