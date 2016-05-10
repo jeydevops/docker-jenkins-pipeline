@@ -1,11 +1,11 @@
-FROM centos
+FROM java:8-jdk
 
-RUN yum -y install java-1.7.0-openjdk-devel.x86_64 
+MAINTAINER ayache khettar <ayache.khettar@infinityworks.com>
 
-ADD target/dropwizard-helloworld-1.0-SNAPSHOT.jar /
-ADD example.yml /
-ADD example.keystore /
+ADD target/dropwizard-example-1.0.0-SNAPSHOT.jar /
+ADD example.yml /data/example.yml
+ADD example.keystore /data/example.keystore
 
-CMD ["java", "-jar", "dropwizard-helloworld-1.0-SNAPSHOT.jar", "server", "example.yml"]
+CMD ["java", "-jar", "dropwizard-example-1.0.0-SNAPSHOT.jar", "server", "data/example.yml"]
 
 EXPOSE 8080
