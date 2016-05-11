@@ -17,7 +17,6 @@ node {
 
    stage 'Acceptance Tests'
    image.withRun('-p 8181:8181') {c ->
-        sleep 120
         sh "${mvnHome}/bin/mvn verify"
    }
 
