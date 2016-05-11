@@ -17,7 +17,7 @@ node {
    def buildUrl = env.BUILD_URL
 
    stage 'Build Docker image'
-   sh "eval $(/usr/bin/docker-machine env)"
+   sh "eval \$(/usr/bin/docker-machine env)"
    def image = docker.build('infinityworks/dropwizard-example:snapshot', '.')
 
    stage 'Acceptance Tests'
