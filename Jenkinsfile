@@ -5,18 +5,11 @@ node {
 
    stage 'Build application'
 
-   stage 'Build'
-
    def mvnHome = tool 'M3'
    sh "${mvnHome}/bin/mvn clean install"
 
    step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
 
-   // setting permissions
-   //sh "chown jenkins /var/run/docker.sock"
-   //sh "chown jenkins /usr/bin/docker"
-
-   stage 'Docker'
 
    stage 'Build Docker image'
 
@@ -29,4 +22,10 @@ node {
 
    /* Archive acceptance tests results */
    step([$class: 'JUnitResultArchiver', testResults: '**/target/failsafe-reports/TEST-*.xml'])
+
+   stage 'Push image'
+   docker.withRegistry("https://registry.infinityworks.com", "docker-registry") {
+          image.push()
+   }
+
 }
