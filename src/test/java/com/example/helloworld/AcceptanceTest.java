@@ -34,7 +34,7 @@ public class AcceptanceTest {
                 .queryParam("name", name.get())
                 .request()
                 .get(Saying.class);
-        assertThat(saying.getContent()).isEqualTo("hello world");
+        assertThat(saying.getContent()).isEqualTo("Hello, Dr. IntegrationTest!");
     }
 
     @Test

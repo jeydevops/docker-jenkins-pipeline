@@ -16,7 +16,7 @@ node {
    def image = docker.build('infinityworks/dropwizard-example:snapshot', '.')
 
    stage 'Acceptance Tests'
-   image.withRun('-p 8181:8181') {c ->
+   image.withRun('-p 8181:8080') {c ->
         sh "${mvnHome}/bin/mvn verify"
    }
 
