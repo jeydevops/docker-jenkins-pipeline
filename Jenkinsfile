@@ -13,8 +13,10 @@ node {
    step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
 
    // setting permissions
-   sh "chown jenkins /var/run/docker.sock"
-   sh "chown jenkins /usr/bin/docker"
+   //sh "chown jenkins /var/run/docker.sock"
+   //sh "chown jenkins /usr/bin/docker"
+
+   stage 'Docker'
 
    stage 'Build Docker image'
 
@@ -25,7 +27,6 @@ node {
         sh "${mvnHome}/bin/mvn verify"
    }
 
-   sh "su jenkins"
    /* Archive acceptance tests results */
    step([$class: 'JUnitResultArchiver', testResults: '**/target/failsafe-reports/TEST-*.xml'])
 }
