@@ -12,10 +12,8 @@ node {
 
    step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
 
-   def buildNumber = env.BUILD_NUMBER
-   def workspace = env.WORKSPACE
-   def buildUrl = env.BUILD_URL
-
+   // changing to root to run docker commands
+   sh "sudo su"
    stage 'Build Docker image'
 
    def image = docker.build('infinityworks/dropwizard-example:snapshot', '.')
@@ -25,6 +23,7 @@ node {
            sh "${mvnHome}/bin/mvn verify"
    }
 
+   sh "su jenkins"
    /* Archive acceptance tests results */
    step([$class: 'JUnitResultArchiver', testResults: '**/target/failsafe-reports/TEST-*.xml'])
 }
