@@ -6,7 +6,7 @@ node {
    stage 'Build application'
 
    def mvnHome = tool 'M3'
-   sh "${mvnHome}/bin/mvn clean install"
+   sh "${mvnHome}/bin/mvn clean package"
 
    step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
 
