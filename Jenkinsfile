@@ -12,15 +12,17 @@ node {
 
    step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
 
-   // changing to root to run docker commands
-   sh "sudo su"
+   // setting permissions
+   sh "chown jenkins /var/run/docker.sock"
+   sh "chown jenkins /usr/bin/docker"
+
    stage 'Build Docker image'
 
    def image = docker.build('infinityworks/dropwizard-example:snapshot', '.')
 
    stage 'Acceptance Tests'
    image.withRun('-p 8181:8181') {c ->
-           sh "${mvnHome}/bin/mvn verify"
+        sh "${mvnHome}/bin/mvn verify"
    }
 
    sh "su jenkins"
