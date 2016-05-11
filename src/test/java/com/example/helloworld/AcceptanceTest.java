@@ -30,7 +30,7 @@ public class AcceptanceTest {
     @Test
     public void testHelloWorld() throws Exception {
         final Optional<String> name = Optional.fromNullable("Dr. IntegrationTest");
-        final Saying saying = client.target("http://localhost:" + PORT + "/hello-world")
+        final Saying saying = client.target("http://192.168.99.100:" + PORT + "/hello-world")
                 .queryParam("name", name.get())
                 .request()
                 .get(Saying.class);
@@ -40,7 +40,7 @@ public class AcceptanceTest {
     @Test
     public void testPostPerson() throws Exception {
         final Person person = new Person("Dr. IntegrationTest", "Chief Wizard");
-        final Person newPerson = client.target("http://localhost:" + PORT + "/people")
+        final Person newPerson = client.target("http://192.168.99.100:" + PORT + "/people")
                 .request()
                 .post(Entity.entity(person, MediaType.APPLICATION_JSON_TYPE))
                 .readEntity(Person.class);
