@@ -10,4 +10,4 @@ RUN java -jar dropwizard-example-1.0.0-SNAPSHOT.jar db migrate data/example.yml
 
 CMD ["java", "-jar", "dropwizard-example-1.0.0-SNAPSHOT.jar", "server", "data/example.yml"]
 
-EXPOSE 8080
+EXPOSE 9090
