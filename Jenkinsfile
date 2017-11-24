@@ -16,10 +16,10 @@ node {
 
    stage 'Build Docker image'
 
-   def image = docker.build('infinityworks/dropwizard-example:snapshot', '.')
+   def image = docker.build('devopsbasservice/dropwizard-example:snapshot', '.')
 
    stage 'Acceptance Tests'
-   image.withRun('-p 8181:8080') {c ->
+   image.withRun('-p 9191:9090') {c ->
         sh "${mvnHome}/bin/mvn verify"
    }
 
@@ -27,7 +27,7 @@ node {
    step([$class: 'JUnitResultArchiver', testResults: '**/target/failsafe-reports/TEST-*.xml'])
 
    stage 'Push image'
-   docker.withRegistry("https://registry.infinityworks.com", "docker-registry") {
+   docker.withRegistry("https://index.docker.io/v1/", "docker-registry") {
           image.push()
    }
 
